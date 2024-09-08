@@ -34,7 +34,6 @@ public interface ApiAppPlant {
     );
 
     @GET("gettree.php")
-    @FormUrlEncoded
     Observable<ProductModel> getsp();
 
 

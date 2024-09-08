@@ -8,28 +8,38 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.projectplant.databinding.FragmentHomeBinding;
 import com.example.projectplant.databinding.FragmentProfileBinding;
-import com.example.projectplant.ui.home.HomeViewModel;
 
 public class ProfileFragment extends Fragment {
+
     private FragmentProfileBinding binding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
-
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textView2;
-        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // Nhận dữ liệu từ Bundle
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String username = bundle.getString("username");
+            String email = bundle.getString("email");
+
+            // Cập nhật TextView với tên và email
+            TextView tvName = binding.tvName;
+            TextView tvEmail = binding.tvEmail;
+
+            if (username != null) {
+                tvName.setText(username);
+            }
+            if (email != null) {
+                tvEmail.setText(email);
+            }
+        }
         return root;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectplant.retrofit.ApiAppPlant;
 import com.example.projectplant.retrofit.RetrofitClient;
+import com.example.projectplant.ui.profile.ProfileFragment;
 import com.example.projectplant.utils.Utils;
 
 import io.paperdb.Paper;
@@ -106,6 +107,18 @@ public class Login extends AppCompatActivity {
                                             // Lưu thông tin người dùng vào Paper
                                             Paper.book().write("user_email", str_email);
                                             Paper.book().write("user_password", str_password);
+
+                                            // Tạo một Bundle để chứa dữ liệu
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("username", Utils.user_current.getFullname());
+                                            bundle.putString("email", Utils.user_current.getEmail());
+
+                                            // Tạo Fragment và gán Bundle
+                                            ProfileFragment profileFragment = new ProfileFragment();
+                                            profileFragment.setArguments(bundle);
+
+
+
 
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                             startActivity(intent);

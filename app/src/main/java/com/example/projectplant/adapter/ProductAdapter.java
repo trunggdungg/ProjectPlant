@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projectplant.R;
 import com.example.projectplant.model.Product;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
@@ -49,13 +50,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public void onBindViewHolder(@NonNull ProductAdapter.MyViewHolder holder, int position) {
         Product SanPham = array.get(position);
         holder.tv_tensp.setText(SanPham.getName_tree());
-        holder.tv_gia.setText(String.valueOf(SanPham.getPrice_tree()));
-        byte[] imageBytes = SanPham.getImage_tree();
-        if (imageBytes != null && imageBytes.length > 0) {
+
+        float priceFloat = SanPham.getPrice_tree();
+
+        // Định dạng giá trị float
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        String formattedPrice = decimalFormat.format(priceFloat);
+        // Hiển thị giá
+        holder.tv_gia.setText("Giá: " + formattedPrice + "$");
+
+        // Lấy chuỗi base64 từ model
+        String imageBase64 = SanPham.getImage_tree();
+
+        // Kiểm tra nếu imageBase64 không null và không rỗng
+        if (imageBase64 != null && !imageBase64.isEmpty()) {
+            // Giải mã base64 thành byte[]
+            byte[] imageBytes = android.util.Base64.decode(imageBase64, android.util.Base64.DEFAULT);
+
+            // Chuyển byte[] thành Bitmap
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+            // Hiển thị hình ảnh lên ImageView
             holder.img_sanpham.setImageBitmap(bitmap);
         } else {
-            holder.img_sanpham.setImageResource(R.drawable.product);
+            // Nếu không có ảnh, sử dụng ảnh mặc định
+            holder.img_sanpham.setImageResource(R.drawable.product);  // Ảnh mặc định
         }
     }
 

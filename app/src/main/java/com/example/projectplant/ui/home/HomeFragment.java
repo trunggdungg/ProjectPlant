@@ -101,13 +101,14 @@ public class HomeFragment extends Fragment {
         listviewhome = binding.listviewhome;
 
         // Cài đặt layout cho RecyclerView
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         rcv_sp.setLayoutManager(layoutManager);
         rcv_sp.setHasFixedSize(true);
 
         // Khởi tạo danh sách sản phẩm
         arrsp = new ArrayList<>();
     }
+
 
     private Boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

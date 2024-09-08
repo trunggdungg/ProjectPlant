@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
 
         // Kiểm tra kết nối mạng trước khi gọi API
         if (isConnected(getContext())) {
-            Toast.makeText(getContext(), "Kết nối thành công", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Kết nối thành công", Toast.LENGTH_SHORT).show();
             getsp(); // Gọi API để lấy sản phẩm
         } else {
             Toast.makeText(getContext(), "Không có kết nối internet", Toast.LENGTH_LONG).show();

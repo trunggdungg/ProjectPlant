@@ -32,16 +32,18 @@
 
     <ImageView
         android:id="@+id/ivPlant"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="413dp"
+        android:layout_height="397dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo"
+        android:src="@drawable/img_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAppName" />
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"
+        app:layout_constraintVertical_bias="0.447" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnGetStarted"

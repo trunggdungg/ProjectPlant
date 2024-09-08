@@ -13,10 +13,6 @@ import retrofit2.http.POST;
 
 public interface ApiAppPlant {
 
-    //GET DATA
-
-
-
     //POST DATA
     @POST("dangky.php")
     @FormUrlEncoded

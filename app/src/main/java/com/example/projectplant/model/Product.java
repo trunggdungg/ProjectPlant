@@ -1,6 +1,10 @@
 package com.example.projectplant.model;
 
-public class Product {
+import com.esotericsoftware.kryo.Serializer;
+
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int id_tree;
     private int id_category;
     private String image_tree;

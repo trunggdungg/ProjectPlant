@@ -1,6 +1,7 @@
 package com.example.projectplant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectplant.R;
+import com.example.projectplant.inf_sp.inf_sp;
 import com.example.projectplant.model.Product;
 
 import java.text.DecimalFormat;
@@ -76,6 +78,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             // Nếu không có ảnh, sử dụng ảnh mặc định
             holder.img_sanpham.setImageResource(R.drawable.product);  // Ảnh mặc định
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, inf_sp.class);
+                intent.putExtra("info_tree", SanPham);  // Truyền đối tượng Product
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

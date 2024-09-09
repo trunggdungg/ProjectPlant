@@ -8,7 +8,7 @@ public class Product implements Serializable {
     private int id_tree;
     private int id_category;
     private String image_tree;
-    private String name_tree,color_tree;
+    private String name_tree;
     private float price_tree;
     private String  info_tree;
 
@@ -36,11 +36,10 @@ public class Product implements Serializable {
         this.id_tree = id_tree;
     }
 
-    public Product(int id_tree, String info_tree, float price_tree, String color_tree, String name_tree, int id_category, String image_tree) {
+    public Product(int id_tree, String info_tree, float price_tree, String name_tree, int id_category, String image_tree) {
         this.id_tree = id_tree;
         this.info_tree = info_tree;
         this.price_tree = price_tree;
-        this.color_tree = color_tree;
         this.name_tree = name_tree;
         this.id_category = id_category;
         this.image_tree = image_tree;
@@ -62,13 +61,6 @@ public class Product implements Serializable {
         this.name_tree = name_tree;
     }
 
-    public String getColor_tree() {
-        return color_tree;
-    }
-
-    public void setColor_tree(String color_tree) {
-        this.color_tree = color_tree;
-    }
 
     public String getInfo_tree() {
         return info_tree;

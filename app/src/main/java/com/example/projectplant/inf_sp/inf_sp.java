@@ -45,15 +45,15 @@ public class inf_sp extends AppCompatActivity {
     }
 
     private void AnhXa() {
-        tv_tensp = findViewById(R.id.tv_tensp);
-        tv_gia = findViewById(R.id.tv_gia);
-        tvif_sp = findViewById(R.id.productPrice);
+        tv_tensp = findViewById(R.id.productName);
+        tv_gia = findViewById(R.id.productPrice);
+        tvif_sp = findViewById(R.id.descriptionText);
         btn_cart = findViewById(R.id.addToCartButton);
         img_sp = findViewById(R.id.productImageView);
         quantityText = findViewById(R.id.quantityText);
         decreaseButton = findViewById(R.id.decreaseButton);
         increaseButton = findViewById(R.id.increaseButton);
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbarInfo);
     }
 
     private void setupQuantityButtons() {

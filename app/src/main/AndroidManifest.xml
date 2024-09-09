@@ -16,9 +16,18 @@
         android:theme="@style/Theme.ProjectPlant"
         tools:targetApi="31">
         <activity
+            android:name=".ui.profile.oder_history"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.info"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.verify_email"
+            android:exported="false" />
+        <activity
             android:name=".inf_sp.inf_sp"
             android:exported="false"
-             android:theme="@style/Theme.ProjectPlant.NoActionBar"/>
+            android:theme="@style/Theme.ProjectPlant.NoActionBar" />
         <activity
             android:name=".Login"
             android:exported="false"

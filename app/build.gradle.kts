@@ -66,4 +66,8 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 //paper
     implementation ("io.github.pilgr:paperdb:2.7.2")
+
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
 }
+

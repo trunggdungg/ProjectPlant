@@ -25,7 +25,7 @@ public class CartFragment extends Fragment {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
+        final TextView textView = binding.tvName;
         cartViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

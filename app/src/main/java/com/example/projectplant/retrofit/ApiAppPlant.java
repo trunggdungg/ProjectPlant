@@ -19,7 +19,8 @@ public interface ApiAppPlant {
     Observable<UserModel> dangky(
             @Field("fullname") String fullname,
             @Field("email") String email,
-            @Field("password") String password
+            @Field("password") String password,
+            @Field("uid") String uid
     );
 
     @POST("dangnhap.php")
@@ -32,5 +33,11 @@ public interface ApiAppPlant {
     @GET("gettree.php")
     Observable<ProductModel> getsp();
 
+    @POST("updatetoken.php")
+    @FormUrlEncoded
+    Observable<UserModel> updatetoken(
+            @Field("id") int id,
+            @Field("token") String token
+    );
 
 }

@@ -5,12 +5,29 @@ public class User {
     private String fullname;
     private String email;
     private String password;
-
+    private String uid;
+    public String token;
     public User(int id, String fullname, String email, String password) {
         this.id = id;
         this.fullname = fullname;
         this.email = email;
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public User() {

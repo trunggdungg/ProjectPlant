@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -41,7 +40,7 @@ public class HomeFragment extends Fragment {
     RecyclerView rcv_sp;
     NavigationView nagvigationview_home;
     ListView listviewhome;
-    ApiAppPlant apiAppPlant;
+    ApiAppPlant apiAppPlan;
     List<Product> arrsp;
     ProductAdapter sanPhamAdapter;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -72,10 +71,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void getsp() {
-        apiAppPlant = RetrofitClient.getInstance().create(ApiAppPlant.class);
+        apiAppPlan = RetrofitClient.getInstance().create(ApiAppPlant.class);
 
         // Gọi API lấy danh sách sản phẩm và quản lý với RxJava
-        compositeDisposable.add(apiAppPlant.getsp()
+        compositeDisposable.add(apiAppPlan.getsp()
                 .subscribeOn(Schedulers.io())               // Chạy trong thread nền
                 .observeOn(AndroidSchedulers.mainThread())   // Hiển thị trên main thread
                 .subscribe(

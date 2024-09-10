@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
@@ -21,6 +22,12 @@ import com.example.projectplant.retrofit.ApiAppPlant;
 import com.example.projectplant.retrofit.RetrofitClient;
 import com.example.projectplant.ui.profile.ProfileFragment;
 import com.example.projectplant.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -33,7 +40,8 @@ public class Login extends AppCompatActivity {
     private TextView textViewSignUp;
     private EditText editEmail, editPassword;
     AppCompatButton btnLogin;
-
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
     ApiAppPlant apiAppPlant;
     CompositeDisposable compositeDisposable  = new CompositeDisposable();
 
@@ -65,7 +73,8 @@ public class Login extends AppCompatActivity {
         editPassword= findViewById(R.id.etPassword);
         btnLogin= findViewById(R.id.btnLoginOfLog);
         textViewSignUp = findViewById(R.id.txtdangky);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         // Lấy thông tin người dùng từ Paper và hiển thị nếu có
         String email = Paper.book().read("user_email", null);
         String password = Paper.book().read("user_password", null);
@@ -82,63 +91,66 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
         });
 
+        btnLogin.setOnClickListener(view -> handleLogin());
+    }
 
-        btnLogin.setOnClickListener(view -> {
-            String str_email = editEmail.getText().toString().trim();
-            String str_password = editPassword.getText().toString().trim();
+    private void handleLogin() {
+        String str_email = editEmail.getText().toString().trim();
+        String str_password = editPassword.getText().toString().trim();
 
-            if (TextUtils.isEmpty(str_email)) {
-                Toast.makeText(getApplicationContext(), "Bạn chưa nhập Email!", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(str_password)) {
-                Toast.makeText(getApplicationContext(), "Bạn chưa nhập Mật khẩu!", Toast.LENGTH_SHORT).show();
-            } else {
-                Log.d(TAG, "Attempting login with email: " + str_email);
-                compositeDisposable.add(apiAppPlant.dangnhap(str_email, str_password)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                userModel -> {
-                                    Log.d(TAG, "Login response received: " + userModel.toString());
-                                    if (userModel.isSuccess()) {
-                                        if (userModel.getResult() != null && !userModel.getResult().isEmpty()) {
-                                            Utils.user_current = userModel.getResult().get(0);
-                                            Log.d(TAG, "Login successful. User: " + Utils.user_current.toString());
+        if (TextUtils.isEmpty(str_email)) {
+            Toast.makeText(getApplicationContext(), "Bạn chưa nhập Email!", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(str_password)) {
+            Toast.makeText(getApplicationContext(), "Bạn chưa nhập Mật khẩu!", Toast.LENGTH_SHORT).show();
+        } else {
+            // Đăng nhập với Firebase Authentication
+            firebaseAuth.signInWithEmailAndPassword(str_email, str_password).addOnCompleteListener(Login.this, task -> {
+                if (task.isSuccessful()) {
+                    performLogin(str_email, str_password);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
 
-                                            // Lưu thông tin người dùng vào Paper
-                                            Paper.book().write("user_email", str_email);
-                                            Paper.book().write("user_password", str_password);
-
-                                            // Tạo một Bundle để chứa dữ liệu
-                                            Bundle bundle = new Bundle();
-                                            bundle.putString("username", Utils.user_current.getFullname());
-                                            bundle.putString("email", Utils.user_current.getEmail());
-
-                                            // Tạo Fragment và gán Bundle
-                                            ProfileFragment profileFragment = new ProfileFragment();
-                                            profileFragment.setArguments(bundle);
-
-
+    // Hàm thực hiện login với API
+    private void performLogin(String email, String password) {
+        Log.d(TAG, "Attempting login with email: " + email);
+        compositeDisposable.add(apiAppPlant.dangnhap(email, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            Log.d(TAG, "Login response received: " + userModel.toString());
+                            if (userModel.isSuccess()) {
+                                if (userModel.getResult() != null && !userModel.getResult().isEmpty()) {
+                                    Utils.user_current = userModel.getResult().get(0);
+                                    Log.d(TAG, "Login successful. User: " + Utils.user_current.toString());
 
 
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(intent);
-                                            Toast.makeText(getApplicationContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Log.w(TAG, "User list is null or empty");
-                                            Toast.makeText(getApplicationContext(), "Không tìm thấy thông tin người dùng", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else {
-                                        Log.w(TAG, "Login failed: " + userModel.getMessage());
-                                        Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                },
-                                throwable -> {
-                                    Log.e(TAG, "Login error", throwable);
-                                    Toast.makeText(getApplicationContext(), "Lỗi đăng nhập: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Paper.book().write("user",userModel.getResult().get(0));
+
+
+
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    Toast.makeText(getApplicationContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Log.w(TAG, "User list is null or empty");
+                                    Toast.makeText(getApplicationContext(), "Không tìm thấy thông tin người dùng", Toast.LENGTH_SHORT).show();
                                 }
-                        ));
-            }
-        });
+                            } else {
+                                Log.w(TAG, "Login failed: " + userModel.getMessage());
+                                Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        throwable -> {
+                            Log.e(TAG, "Login error", throwable);
+                            Toast.makeText(getApplicationContext(), "Lỗi đăng nhập: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                ));
     }
 
     @Override

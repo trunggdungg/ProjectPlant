@@ -65,5 +65,12 @@ public class User {
         this.password = password;
     }
 
-
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + fullname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

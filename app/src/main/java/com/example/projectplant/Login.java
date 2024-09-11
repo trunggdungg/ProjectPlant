@@ -29,6 +29,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -129,8 +131,9 @@ public class Login extends AppCompatActivity {
                                     Log.d(TAG, "Login successful. User: " + Utils.user_current.toString());
 
 
-                                    Paper.book().write("user",userModel.getResult().get(0));
-
+                                    Paper.book().write("user_email",email);
+                                    Paper.book().write("user_password",password);
+                                    Log.d(TAG, "User saved to PaperDB: " + Objects.requireNonNull(Paper.book().read("user")).toString());
 
 
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

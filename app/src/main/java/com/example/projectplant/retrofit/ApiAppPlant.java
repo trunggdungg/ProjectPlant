@@ -33,9 +33,9 @@ public interface ApiAppPlant {
     @GET("gettree.php")
     Observable<ProductModel> getsp();
 
-    @POST("updatetoken.php")
     @FormUrlEncoded
-    Observable<UserModel> updatetoken(
+    @POST("updatetoken2.php")
+    Observable<ProductModel> updatetoken(
             @Field("id") int id,
             @Field("token") String token
     );

@@ -26,6 +26,36 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.nex3z.notificationbadge.NotificationBadge
+            android:id="@+id/badge"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="365dp" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="335dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_cart_24">
+
+        </ImageView>
+
+
+    </FrameLayout>
+
+
+
+
+    <FrameLayout
         android:id="@+id/imageContainer"
         android:layout_width="match_parent"
         android:layout_height="200dp"

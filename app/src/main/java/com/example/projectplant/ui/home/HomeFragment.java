@@ -25,6 +25,7 @@ import com.example.projectplant.databinding.FragmentHomeBinding;
 import com.example.projectplant.model.Product;
 import com.example.projectplant.retrofit.ApiAppPlant;
 import com.example.projectplant.retrofit.RetrofitClient;
+import com.example.projectplant.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -106,6 +107,12 @@ public class HomeFragment extends Fragment {
 
         // Khởi tạo danh sách sản phẩm
         arrsp = new ArrayList<>();
+
+
+        //
+        if (Utils.cartList == null) {
+            Utils.cartList = new ArrayList<>();
+        }
     }
 
 

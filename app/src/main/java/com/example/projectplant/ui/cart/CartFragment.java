@@ -1,12 +1,16 @@
 package com.example.projectplant.ui.cart;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,10 +23,19 @@ import com.example.projectplant.ThanhToan;
 import com.example.projectplant.adapter.CartAdapter;
 import com.example.projectplant.databinding.FragmentCartBinding;
 import com.example.projectplant.model.Cart;
+import com.example.projectplant.model.User;
+import com.example.projectplant.retrofit.ApiAppPlant;
+import com.example.projectplant.retrofit.RetrofitClient;
 import com.example.projectplant.utils.Utils;
 
 import java.text.DecimalFormat;
 import java.util.List;
+
+import io.paperdb.Paper;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 public class CartFragment extends Fragment {
     RecyclerView recyclerView;
@@ -32,6 +45,9 @@ public class CartFragment extends Fragment {
     List<Cart> cartList;
     CartAdapter cartAdapter;
     float total ;
+    ApiAppPlant apiAppPlant;
+    private int id_user;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CartViewModel cartViewModel =
@@ -39,13 +55,20 @@ public class CartFragment extends Fragment {
 
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        User user = Paper.book().read("user");
+        if (user != null) {
+            id_user = user.getId();
+            Log.d("Login", "User ID: " + id_user);
+        } else {
+            Log.d("Login", "User not found in PaperDB");
+        }
 
         AnhXa();
-
         return root;
     }
 
     private void AnhXa() {
+        apiAppPlant = RetrofitClient.getInstance().create(ApiAppPlant.class);
         recyclerView = binding.cartRecyclerView;
         buyButton = binding.buyButton;
         totalPriceLabelTextView = binding.totalPriceLabelTextView;
@@ -66,11 +89,45 @@ public class CartFragment extends Fragment {
         }
 
         buyButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), ThanhToan.class);
-            intent.putExtra("totalPrice", total);
-            startActivity(intent);
+            if (cartList.isEmpty()) {
+                Toast.makeText(getContext(), "Giỏ hàng trống! Thêm sản phẩm vào giỏ hàng trước khi thanh toán.", Toast.LENGTH_SHORT).show();
+            }
+            else
+                {
+                    for (Cart cartItem : cartList) {
+                        addCartToDatabase(id_user, cartItem.getId_tree(), cartItem.getPrice_tree());
+                        Intent intent = new Intent(getContext(), ThanhToan.class);
+                        intent.putExtra("totalPrice", total);
+                        startActivity(intent);
+                    }
+            }
         });
     }
+    private void addCartToDatabase(int id_user, int id_tree, float price) {
+        if (apiAppPlant != null) {
+            compositeDisposable.add(apiAppPlant.addCart(id_user, id_tree, price)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            response -> {
+                                Log.d(TAG, "Add to cart response received: " + response.toString());
+                                if (response.isSuccess()) {
+                                    Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Log.w(TAG, "Add to cart failed: " + response.getMessage());
+                                    Toast.makeText(getContext(), "Failed to add to cart: " + response.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            throwable -> {
+                                Log.e(TAG, "Add to cart error", throwable);
+                                Toast.makeText(getContext(), "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                    ));
+        } else {
+            Toast.makeText(getContext(), "API is not initialized", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // Hiển thị thông báo khi giỏ hàng trống
     private void showEmptyCart() {
         recyclerView.setVisibility(View.GONE);

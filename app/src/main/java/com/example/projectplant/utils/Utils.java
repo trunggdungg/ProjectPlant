@@ -8,6 +8,6 @@ import java.util.List;
 public class Utils {
     public static final String BASE_URL = "https://192.168.0.103/AppPlant/";
     public static List<Cart> cartList;
-    public static User user_current  = new User();
+    public static User user_current ;
 
 }

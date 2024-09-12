@@ -22,22 +22,10 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
 
         // Nhận dữ liệu từ Bundle
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String username = bundle.getString("username");
-            String email = bundle.getString("email");
-
             // Cập nhật TextView với tên và email
             TextView tvName = binding.tvName;
             TextView tvEmail = binding.tvEmail;
 
-            if (username != null) {
-                tvName.setText(username);
-            }
-            if (email != null) {
-                tvEmail.setText(email);
-            }
-        }
         return root;
     }
     @Override

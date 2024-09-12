@@ -96,6 +96,7 @@ public class SignUp extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             assert user != null;
                             registerUser(fullName, email, password,user.getUid());
+                            Toast.makeText(getApplicationContext(),"Dang ky thanh cong",Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -114,8 +115,6 @@ public class SignUp extends AppCompatActivity {
                 .subscribe(
                         userModel -> {
                             if (userModel.isSuccess()) {
-                                Utils.user_current.setEmail(email);
-                                Utils.user_current.setPassword(password);
                                 Intent intent  = new Intent(getApplicationContext(),Login.class);
                                 startActivity(intent);
                                 finish();

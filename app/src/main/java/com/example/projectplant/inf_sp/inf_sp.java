@@ -24,6 +24,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.Objects;
 
+import io.paperdb.Paper;
 import okhttp3.internal.Util;
 
 public class inf_sp extends AppCompatActivity {
@@ -47,6 +48,7 @@ public class inf_sp extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Paper.init(this);
         AnhXa();
         ActionToolBar();
         HienThongTin();
@@ -79,6 +81,7 @@ public class inf_sp extends AppCompatActivity {
                     float price = product.getPrice_tree() * Utils.cartList.get(i).getQuantity();
                     Utils.cartList.get(i).setPrice_tree(price);
                     flag = true;
+
                 }
             }
             if (!flag){
@@ -103,6 +106,7 @@ public class inf_sp extends AppCompatActivity {
             cart.setImage_tree(product.getImage_tree());
             Utils.cartList.add(cart);
         }
+        Paper.book().write("cartList", Utils.cartList);
         badge.setText(String.valueOf(Utils.cartList.size()));
     }
 

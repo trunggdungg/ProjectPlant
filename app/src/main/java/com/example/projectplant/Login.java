@@ -78,13 +78,13 @@ public class Login extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         // Lấy thông tin người dùng từ Paper và hiển thị nếu có
-        String email = Paper.book().read("user_email", null);
-        String password = Paper.book().read("user_password", null);
-
-        if (email != null && password != null) {
-            editEmail.setText(email);
-            editPassword.setText(password);
-        }
+//        String email = Paper.book().read("user_email", null);
+//        String password = Paper.book().read("user_password", null);
+//
+//        if (email != null && password != null) {
+//            editEmail.setText(email);
+//            editPassword.setText(password);
+//        }
     }
 
     private void setupSignUpNavigation() {
@@ -129,8 +129,6 @@ public class Login extends AppCompatActivity {
                                 if (userModel.getResult() != null && !userModel.getResult().isEmpty()) {
                                     Utils.user_current = userModel.getResult().get(0);
                                     Log.d(TAG, "Login successful. User: " + Utils.user_current.toString());
-
-
                                     Paper.book().write("user", Utils.user_current);
                                     Log.d(TAG, "User saved to PaperDB: " + Paper.book().read("user").toString());
                                     Log.d(TAG, "API Response: " + userModel.getResult().toString());
@@ -157,10 +155,10 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (Utils.user_current != null && Utils.user_current.getEmail() != null && Utils.user_current.getPassword() != null) {
-            editEmail.setText(Utils.user_current.getEmail());
-            editPassword.setText(Utils.user_current.getPassword());
-        }
+//        if (Utils.user_current != null && Utils.user_current.getEmail() != null && Utils.user_current.getPassword() != null) {
+//            editEmail.setText(Utils.user_current.getEmail());
+//            editPassword.setText(Utils.user_current.getPassword());
+//        }
     }
 
 

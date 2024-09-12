@@ -131,11 +131,9 @@ public class Login extends AppCompatActivity {
                                     Log.d(TAG, "Login successful. User: " + Utils.user_current.toString());
 
 
-                                    Paper.book().write("user_email",email);
-                                    Paper.book().write("user_password",password);
-                                    Log.d(TAG, "User saved to PaperDB: " + Objects.requireNonNull(Paper.book().read("user")).toString());
-
-
+                                    Paper.book().write("user", Utils.user_current);
+                                    Log.d(TAG, "User saved to PaperDB: " + Paper.book().read("user").toString());
+                                    Log.d(TAG, "API Response: " + userModel.getResult().toString());
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();

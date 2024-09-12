@@ -73,8 +73,6 @@
 
             // Get token
             getToken();
-
-
             DrawerLayout drawer = binding.drawerLayout;
             NavigationView navigationView = binding.navView;
 

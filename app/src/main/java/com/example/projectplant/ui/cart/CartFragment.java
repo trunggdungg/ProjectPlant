@@ -1,5 +1,6 @@
 package com.example.projectplant.ui.cart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectplant.R;
+import com.example.projectplant.ThanhToan;
 import com.example.projectplant.adapter.CartAdapter;
 import com.example.projectplant.databinding.FragmentCartBinding;
 import com.example.projectplant.model.Cart;
@@ -29,7 +31,7 @@ public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
     List<Cart> cartList;
     CartAdapter cartAdapter;
-
+    float total ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CartViewModel cartViewModel =
@@ -62,8 +64,14 @@ public class CartFragment extends Fragment {
             // Hiển thị danh sách sản phẩm trong giỏ hàng
             showCartContent();
         }
+
+        buyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ThanhToan.class);
+            intent.putExtra("totalPrice", total);
+            startActivity(intent);
+        });
     }
-// Hiển thị thông báo khi giỏ hàng trống
+    // Hiển thị thông báo khi giỏ hàng trống
     private void showEmptyCart() {
         recyclerView.setVisibility(View.GONE);
     }
@@ -72,13 +80,11 @@ public class CartFragment extends Fragment {
         recyclerView.setVisibility(View.VISIBLE);
         cartAdapter = new CartAdapter(getContext(), cartList,this);
         recyclerView.setAdapter(cartAdapter);
-
         calculateTotalPrice();
     }
     // Tính tổng tiền
     public void calculateTotalPrice() {
-
-        float total = 0;
+        total = 0;
         for (Cart item : cartList) {
             total += item.getPrice_tree() * item.getQuantity();
         }
@@ -87,9 +93,7 @@ public class CartFragment extends Fragment {
 
         // Hiển thị tổng tiền
         totalPriceTextView.setText(decimalFormat.format(total) + " VND");
-
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

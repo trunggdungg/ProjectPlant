@@ -2,10 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
     <LinearLayout android:id="@+id/linearLayout" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
         <androidx.appcompat.widget.Toolbar android:id="@+id/toolbarThanhToan" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#4CAF50" android:textAlignment="center" android:textSize="48sp" android:textStyle="bold" app:title="Thanh Toán" android:gravity="center" app:titleTextColor="@color/black"/>
-        <TextView android:id="@+id/txtTongtien" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tổng tiền:" android:textColor="@color/black" android:textAlignment="textStart" android:textSize="24sp" android:textStyle="bold"/>
-        <TextView android:id="@+id/txtEmail" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Email:" android:textColor="@color/black" android:textAlignment="textStart" android:textSize="24sp" android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txtTongtien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Tổng tiền:"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Email:"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText android:id="@+id/txtDiaChiGiaoHang" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nhập địa chỉ giao hàng:"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDiaChiGiaoHang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Nhập địa chỉ giao hàng:" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

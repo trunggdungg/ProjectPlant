@@ -6,28 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ichome_24"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_search" />
+<!--        <item-->
+<!--            android:id="@+id/nav_search"-->
+<!--            android:icon="@drawable/ic_menu_gallery"-->
+<!--            android:title="@string/menu_search" />-->
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_cart_24"
             android:title="@string/menu_cart" />
-        <item
-            android:id="@+id/nav_wishlist"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_wishlist" />
+<!--        <item-->
+<!--            android:id="@+id/nav_wishlist"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="@string/menu_wishlist" />-->
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_person_24"
             android:title="@string/menu_profile" />
 
         <item
         android:id="@+id/nav_signout"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/ic_logout_24"
         android:title="Sign Out" />
     </group>
 </menu>

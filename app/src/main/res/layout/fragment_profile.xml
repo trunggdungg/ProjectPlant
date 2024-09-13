@@ -87,46 +87,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:background="@drawable/border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65999997">
-
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="51dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:scaleType="center"
-            app:srcCompat="@drawable/sign_out_profile" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Sign out" />
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="48dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:scaleType="center"
-            app:srcCompat="@drawable/baseline_arrow_forward_24" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="350dp"
         android:layout_height="50dp"

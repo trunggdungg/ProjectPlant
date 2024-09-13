@@ -26,7 +26,7 @@ public class ThanhToan extends AppCompatActivity {
     Toolbar toolbarThanhToan;
     AppCompatButton btnDatHang;
     private int id_user;
-    private String status = "Chua xu ly";
+    private String status = "Chưa xử lý";
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     @Override
@@ -67,7 +67,7 @@ public class ThanhToan extends AppCompatActivity {
         Float price = getIntent().getFloatExtra("totalPrice", 0);
 
         if (address_shipping.isEmpty()) {
-            Toast.makeText(this, "Please provide a shipping address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập địa chỉ giao hàng!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -76,7 +76,7 @@ public class ThanhToan extends AppCompatActivity {
         Order order = new Order(id_user, status, price, address_shipping, timestamp);
 
         // Lưu đơn hàng vào Firebase Realtime Database
-        firebaseDatabase = FirebaseDatabase.getInstance("https://projectplant1-default-rtdb.asia-southeast1.firebasedatabase.app/"); // Cập nhật URL cơ sở dữ liệu
+        firebaseDatabase = FirebaseDatabase.getInstance("https://projectplant-f8356-default-rtdb.firebaseio.com/"); // Cập nhật URL cơ sở dữ liệu
         databaseReference = firebaseDatabase.getReference("orders"); // Trỏ đến nhánh "orders"
         String orderId = databaseReference.push().getKey();  // Tạo ID duy nhất cho đơn hàng
 
@@ -84,18 +84,18 @@ public class ThanhToan extends AppCompatActivity {
             databaseReference.child(orderId).setValue(order)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ThanhToan.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ThanhToan.this, "Đơn hàng của bạn đã được đặt, vui lòng chờ phản hồi!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ThanhToan.this, MainActivity.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(ThanhToan.this, "Failed to place order", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ThanhToan.this, "Đặt hàng thất bại!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(ThanhToan.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         } else {
-            Toast.makeText(this, "Failed to generate order ID", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không tạo được  đơn hàng", Toast.LENGTH_SHORT).show();
         }
     }
 

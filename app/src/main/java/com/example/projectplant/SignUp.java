@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SignUp extends AppCompatActivity {
     private EditText etFullName, etEmail, etPassword, confirmPassword;
     private Button btnSignUp;
-    private TextView textViewSignIn;
+    private TextView textViewSignIn,tvBackSignIn;
+    private ImageButton btnBack;
     FirebaseAuth  firebaseAuth;
     private ApiAppPlant apiAppPlant;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -62,7 +64,11 @@ public class SignUp extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         confirmPassword = findViewById(R.id.etConfirmPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
+        btnBack = findViewById(R.id.btnBackSignIn);
+        tvBackSignIn = findViewById(R.id.tvBackSignIn);
     }
+
+
 
     private void setupSignUpButton() {
         if (btnSignUp == null) {
@@ -77,15 +83,15 @@ public class SignUp extends AppCompatActivity {
             String confirmPasswordText = confirmPassword.getText().toString().trim();
 
             if (fullName.isEmpty()) {
-                Toast.makeText(this, "Please enter your full name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng nhập đầy đủ họ tên!", Toast.LENGTH_SHORT).show();
             } else if (email.isEmpty()) {
-                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng nhap Email!", Toast.LENGTH_SHORT).show();
             } else if (password.isEmpty()) {
-                Toast.makeText(this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng nhập mật khẩu!", Toast.LENGTH_SHORT).show();
             } else if (confirmPasswordText.isEmpty()) {
-                Toast.makeText(this, "Please enter your confirm password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
             } else if (!password.equals(confirmPasswordText)) {
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
             } else {
                 firebaseAuth = firebaseAuth.getInstance();
                 firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
@@ -96,15 +102,27 @@ public class SignUp extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             assert user != null;
                             registerUser(fullName, email, password,user.getUid());
-                            Toast.makeText(getApplicationContext(),"Dang ky thanh cong",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Đăng ký thành công!",Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(),"Email da ton tai",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Email đã được đăng ký trước đó!",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
+        });
+
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+            finish();
+        });
+
+        tvBackSignIn.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -118,14 +136,14 @@ public class SignUp extends AppCompatActivity {
                                 Intent intent  = new Intent(getApplicationContext(),Login.class);
                                 startActivity(intent);
                                 finish();
-                                Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(this, userModel.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         },
                         throwable -> {
                             Log.e(TAG, "Error: " + throwable.getMessage());
-                            Toast.makeText(this, "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this,  "Đăng ký không thành công!", Toast.LENGTH_SHORT).show();
                         }
                 ));
     }

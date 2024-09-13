@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/btnBack"
+        android:id="@+id/btnBackSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,12 +23,15 @@
         android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="32dp"
         android:text="Sign Up"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/etName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
@@ -40,10 +43,10 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/edittext_background"
-        android:hint="Full Name"
-        android:textColorHint="@color/black"
+        android:hint="Họ và tên"
         android:inputType="textPersonName"
         android:padding="12dp"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSignUp" />
@@ -72,10 +75,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/edittext_background"
-        android:hint="Password"
-        android:textColorHint="@color/black"
+        android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:padding="12dp"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etEmail" />
@@ -88,10 +91,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/edittext_background"
-        android:hint="Confirm Password"
-        android:textColorHint="@color/black"
+        android:hint="Xác nhận mật khẩu"
         android:inputType="textPassword"
         android:padding="12dp"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
@@ -104,70 +107,22 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button_green"
-        android:text="Sign Up"
+        android:text="Đăng ký"
         android:textColor="#7EA19B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etConfirmPassword" />
 
     <TextView
-        android:id="@+id/tvSignIn"
+        android:id="@+id/tvBackSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Already have an account? Sign in"
+        android:text="Đã có tài khoản? Đăng nhập"
         android:textColor="@android:color/holo_blue_light"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
-
-    <TextView
-        android:id="@+id/tvOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Or"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSignIn" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvOr">
-
-        <ImageView
-            android:id="@+id/ivFacebook"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/oval"
-            android:clipToOutline="true"
-            android:src="@drawable/logo_facebook" />
-
-        <ImageView
-            android:id="@+id/ivGoogle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/oval"
-            android:clipToOutline="true"
-            android:src="@drawable/logo_google" />
-
-        <ImageView
-            android:id="@+id/ivApple"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/oval"
-            android:clipToOutline="true"
-            android:src="@drawable/logo_apple" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -112,19 +112,19 @@ public class CartFragment extends Fragment {
                             response -> {
                                 Log.d(TAG, "Add to cart response received: " + response.toString());
                                 if (response.isSuccess()) {
-                                    Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Đã thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Log.w(TAG, "Add to cart failed: " + response.getMessage());
-                                    Toast.makeText(getContext(), "Failed to add to cart: " + response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Không thể thêm vào giỏ hàng!" + response.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             },
                             throwable -> {
                                 Log.e(TAG, "Add to cart error", throwable);
-                                Toast.makeText(getContext(), "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Loi them san pham!", Toast.LENGTH_SHORT).show();
                             }
                     ));
         } else {
-            Toast.makeText(getContext(), "API is not initialized", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Loi!", Toast.LENGTH_SHORT).show();
         }
     }
 

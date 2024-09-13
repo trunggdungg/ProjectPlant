@@ -3,17 +3,23 @@
   <component name="AppInsightsSettings">
     <option name="tabSettings">
       <map>
-        <entry key="Firebase Crashlytics">
+        <entry key="Android Vitals">
           <value>
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.projectplant" />
-                  <option name="mobileSdkAppId" value="1:124044438053:android:caca4e4bf9f86e030b2dcc" />
-                  <option name="projectId" value="projectplant1" />
-                  <option name="projectNumber" value="124044438053" />
+                  <option name="appId" value="eaut.example.btl" />
                 </ConnectionSetting>
               </option>
+              <option name="signal" value="SIGNAL_UNSPECIFIED" />
+              <option name="timeIntervalDays" value="SEVEN_DAYS" />
+              <option name="visibilityType" value="ALL" />
+            </InsightsFilterSettings>
+          </value>
+        </entry>
+        <entry key="Firebase Crashlytics">
+          <value>
+            <InsightsFilterSettings>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
               <option name="timeIntervalDays" value="THIRTY_DAYS" />
               <option name="visibilityType" value="ALL" />

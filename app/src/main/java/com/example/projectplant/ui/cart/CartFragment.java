@@ -95,7 +95,7 @@ public class CartFragment extends Fragment {
             else
                 {
                     for (Cart cartItem : cartList) {
-                        addCartToDatabase(id_user, cartItem.getId_tree(), cartItem.getPrice_tree());
+                        addCartToDatabase(id_user, cartItem.getId_tree(), cartItem.getQuantity(), cartItem.getPrice_tree());
                         Intent intent = new Intent(getContext(), ThanhToan.class);
                         intent.putExtra("totalPrice", total);
                         startActivity(intent);
@@ -103,9 +103,9 @@ public class CartFragment extends Fragment {
             }
         });
     }
-    private void addCartToDatabase(int id_user, int id_tree, float price) {
+    private void addCartToDatabase(int id_user, int id_tree,int quantity, float price) {
         if (apiAppPlant != null) {
-            compositeDisposable.add(apiAppPlant.addCart(id_user, id_tree, price)
+            compositeDisposable.add(apiAppPlant.addCart(id_user, id_tree,quantity, price)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

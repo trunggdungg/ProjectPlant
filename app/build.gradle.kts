@@ -81,4 +81,13 @@ dependencies {
     //notification badge
     implementation ("com.nex3z:notification-badge:1.0.4")
 
+
+
+// build.gradle (App level)
+
+    implementation("com.google.firebase:firebase-auth:21.1.0")  // Firebase Auth
+    implementation ("com.google.firebase:firebase-database:20.1.0") // Firebase Realtime Database
+
+
+
 }

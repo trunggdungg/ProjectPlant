@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.projectplant.model.Cart;
 import com.example.projectplant.model.Order;
 import com.example.projectplant.model.User;
 import com.example.projectplant.utils.Utils;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -38,9 +41,9 @@ public class ThanhToan extends AppCompatActivity {
         initControl();
 
         // Lấy thông tin người dùng từ PaperDB
-        User user = Paper.book().read("user");
+        User user = Utils.user_current;
         if (user != null) {
-            id_user = user.getId();
+            id_user = Utils.user_current.getId();
             Log.d("Login", "User ID: " + id_user);
         } else {
             Log.d("Login", "User not found in PaperDB");
@@ -71,22 +74,29 @@ public class ThanhToan extends AppCompatActivity {
             return;
         }
 
+        // Lấy danh sách giỏ hàng từ nơi lưu trữ (ví dụ: PaperDB hoặc SharedPreferences)
+        List<Cart> cartList =Utils.cartList;
+
         // Tạo đối tượng đơn hàng
         long timestamp = System.currentTimeMillis();
-        Order order = new Order(id_user, status, price, address_shipping, timestamp);
+        Order order = new Order(id_user, cartList, status, price, address_shipping, timestamp);
 
         // Lưu đơn hàng vào Firebase Realtime Database
-        firebaseDatabase = FirebaseDatabase.getInstance("https://projectplant-f8356-default-rtdb.firebaseio.com/"); // Cập nhật URL cơ sở dữ liệu
-        databaseReference = firebaseDatabase.getReference("orders"); // Trỏ đến nhánh "orders"
-        String orderId = databaseReference.push().getKey();  // Tạo ID duy nhất cho đơn hàng
+        firebaseDatabase = FirebaseDatabase.getInstance("https://projectplant-f8356-default-rtdb.firebaseio.com/");
+        databaseReference = firebaseDatabase.getReference("orders");
+        String orderId = databaseReference.push().getKey();
 
         if (orderId != null) {
             databaseReference.child(orderId).setValue(order)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
+                            // Xóa giỏ hàng sau khi đặt hàng thành công
+                            Utils.cartList = new ArrayList<>();
+
                             Toast.makeText(ThanhToan.this, "Đơn hàng của bạn đã được đặt, vui lòng chờ phản hồi!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ThanhToan.this, MainActivity.class);
                             startActivity(intent);
+                            finish(); // Đóng activity hiện tại
                         } else {
                             Toast.makeText(ThanhToan.this, "Đặt hàng thất bại!", Toast.LENGTH_SHORT).show();
                         }
@@ -95,7 +105,7 @@ public class ThanhToan extends AppCompatActivity {
                         Toast.makeText(ThanhToan.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         } else {
-            Toast.makeText(this, "Không tạo được  đơn hàng", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không tạo được đơn hàng", Toast.LENGTH_SHORT).show();
         }
     }
 

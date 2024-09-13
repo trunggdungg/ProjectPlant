@@ -46,7 +46,9 @@ public interface ApiAppPlant {
     Observable<CartModel> addCart(
             @Field("id_user") int id_user,
             @Field("id_tree") int id_tree,
+            @Field("quantity") int quantity,
             @Field("price") float price_tree
+
     );
 
     @FormUrlEncoded

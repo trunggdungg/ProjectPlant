@@ -1,5 +1,6 @@
 package com.example.projectplant.inf_sp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.projectplant.R;
 import com.example.projectplant.model.Cart;
 import com.example.projectplant.model.Product;
+import com.example.projectplant.ui.cart.CartFragment;
 import com.example.projectplant.utils.Utils;
 import com.nex3z.notificationbadge.NotificationBadge;
 
@@ -30,7 +32,7 @@ import okhttp3.internal.Util;
 public class inf_sp extends AppCompatActivity {
     TextView tv_tensp, tv_gia, tvif_sp, quantityText;
     Button btn_cart;
-    ImageView img_sp;
+    ImageView img_sp,ic_cart_badge;
     ImageButton increaseButton, decreaseButton;
     Toolbar toolbar;
     private int quantity = 1;
@@ -61,6 +63,13 @@ public class inf_sp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addCart();
+            }
+        });
+
+        ic_cart_badge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shoppingCart();
             }
         });
     }
@@ -106,10 +115,13 @@ public class inf_sp extends AppCompatActivity {
             cart.setImage_tree(product.getImage_tree());
             Utils.cartList.add(cart);
         }
-        Paper.book().write("cartList", Utils.cartList);
+
         badge.setText(String.valueOf(Utils.cartList.size()));
     }
-
+public void shoppingCart() {
+        Intent intent = new Intent(this, CartFragment.class);
+        startActivity(intent);
+    }
 
     private void AnhXa() {
         tv_tensp = findViewById(R.id.productName);
@@ -122,10 +134,13 @@ public class inf_sp extends AppCompatActivity {
         increaseButton = findViewById(R.id.increaseButton);
         toolbar = findViewById(R.id.toolbarInfo);
         badge = findViewById(R.id.badge);
+        ic_cart_badge= findViewById(R.id.ic_cart_badge);
         if (Utils.cartList != null){
             badge.setText(String.valueOf(Utils.cartList.size()));
         }
     }
+
+
 
     private void setupQuantityButtons() {
         decreaseButton.setOnClickListener(v -> updateQuantity(-1));
@@ -145,7 +160,7 @@ public class inf_sp extends AppCompatActivity {
 
         if (product != null) {
             tv_tensp.setText(product.getName_tree());
-            tv_gia.setText(String.format("Giá: %s$", product.getPrice_tree()));
+            tv_gia.setText(String.format("Giá: %sVNĐ", product.getPrice_tree()));
             tvif_sp.setText(product.getInfo_tree());
 
             // Hiển thị hình ảnh bằng Glide

@@ -59,7 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         String formattedPrice = decimalFormat.format(priceFloat);
         // Hiển thị giá
-        holder.tv_gia.setText("Giá: " + formattedPrice + "$");
+        holder.tv_gia.setText(formattedPrice + "VNĐ");
 
         // Lấy chuỗi base64 từ model
         String imageBase64 = SanPham.getImage_tree();

@@ -1,24 +1,18 @@
 package com.example.projectplant.model;
 
+import java.util.List;
+
 public class Order {
     private int id_user;
+    private List<Cart> cartList;
     private String status;
     private float price;
     private String address_shipping;
     private long timestamp;
 
-    public Order() {
-    }
-
-    public Order(int id_user, String address_shipping, float price, String status) {
+    public Order(int id_user, List<Cart> cartList, String status, float price, String address_shipping, long timestamp) {
         this.id_user = id_user;
-        this.address_shipping = address_shipping;
-        this.price = price;
-        this.status = status;
-    }
-
-    public Order(int id_user, String status, float price, String address_shipping, long timestamp) {
-        this.id_user = id_user;
+        this.cartList = cartList;
         this.status = status;
         this.price = price;
         this.address_shipping = address_shipping;
@@ -33,20 +27,20 @@ public class Order {
         this.id_user = id_user;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public List<Cart> getCartList() {
+        return cartList;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 
-    public String getAddress_shipping() {
-        return address_shipping;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAddress_shipping(String address_shipping) {
-        this.address_shipping = address_shipping;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public float getPrice() {
@@ -57,11 +51,19 @@ public class Order {
         this.price = price;
     }
 
-    public String getStatus() {
-        return status;
+    public String getAddress_shipping() {
+        return address_shipping;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAddress_shipping(String address_shipping) {
+        this.address_shipping = address_shipping;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

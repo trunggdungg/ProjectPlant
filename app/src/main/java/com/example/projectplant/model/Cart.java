@@ -1,20 +1,14 @@
 package com.example.projectplant.model;
 
 public class Cart {
-    int id_user;
+
     int id_tree;
     String name_tree;
     float price_tree;
     String image_tree;
     int quantity;
 
-    public int getId_user() {
-        return id_user;
-    }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
 
     public Cart() {
     }

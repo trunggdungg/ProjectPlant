@@ -41,6 +41,7 @@
             android:layout_marginLeft="365dp" />
 
         <ImageView
+            android:id="@+id/ic_cart_badge"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="335dp"
